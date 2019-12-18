@@ -1,0 +1,71 @@
+Syed Ali
+Game Particles Change Log
+
+Monday May 28, 2018
+(CL#: 306024, 306136)
+Changed all the data from doubles to floats
+	Saved ~2ms in Release
+Changed constructors to have initializer lists
+Changed sqrt to sqrtf in Matrix.cpp
+Took out std::list and made a custom linked list (Debug still having issues?)
+	Saved ~30ms in Debug
+
+
+Tues May 29, 2018
+(CL#: 306413, 306408, 306363, 306311, 306293)
+Aligned the data in Particle.h and ParticleEmitter.h
+	Added char padding 
+	Saved ~1ms
+Changed Matrix to have SIMD 
+	Added union and 4 vect4d's
+Changed Vect4D to have SIMD
+	Saved ~10ms
+Changed Matrix constructors to use Vect4D
+	Saved ~1ms
+Removed bloated data from ParticleEmitter.h/.cpp and Particle.h/.cpp
+	Saved ~2ms
+Added proxy to Matrix.h (M2M) [This fixed the debug issues!]
+	Saved ~1.5ms
+
+
+Wednesday May 30, 2018 (Worked on a MacBook Pro for today, speeds may be off due to different machines)
+ (CL#: 307056, 207033)
+Issues with behavior, had to revert a lot of methods
+	Lost speed
+Lost proxy and SIMD because it isn't working with newly refactored list
+New list works and has original behavior and has similar speed increase
+	~30ms because I got a working list now that has the original behavior
+Vect4D and Matrix now are NOT using SIMD/Proxy
+	They are however still using RVO's 
+
+
+Monday June 4, 2018
+(CL#: 308439, 308457)
+Removed operator [] from Matrix
+	Saved maybe 0.5ms
+Added Big 4 to all the classes
+	Didn't really save much on time
+Added SIMD to Vect4D and Proxy SIMD to Matrix*Matrix
+	Somehow made it worse by 2ms	
+Added SIMD M2M2M2M2M proxy
+	Saved 2ms 
+
+Tuesday June 5, 2018
+(CL#: 308737)
+Removed GLError temp variable and just called the method on its own
+	Saved ~0.5ms
+Refactored Remove method and removed extra conditions
+	No time saved?
+Removed temps from SetScale and SetRotZMatrix
+	Saved .3ms
+
+Wednesday June 6, 2018
+(CL#: 309218 )
+Changed compiler settings:
+	Enabled Instruction Set to SSE2
+		Saved .5ms
+	Enabled Fiber Safe Optimization
+	Enabled Floating Point to Fast
+		Saved 0.5ms
+	Compile as C++ Code
+		Saved 0.5ms
